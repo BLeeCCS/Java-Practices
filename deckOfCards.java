@@ -5,18 +5,20 @@ public class DeckOfCards
 
    public static void main(String[] args)
    {
-      Deck tuPac = new Deck(2);
+      int numOfDecks = 2;
+      Deck tuPac = new Deck(numOfDecks);
       
       for (int i = 0; i < 2 * 52; i++)
       {
          System.out.println(tuPac.dealCard());
       }
       
-      tuPac.init(2);
+      numOfDecks = 1;
+      tuPac.init(numOfDecks);
       tuPac.shuffle();
       
       System.out.println("After Shuffled: ");
-      for (int i = 0; i < 2 * 52; i++)
+      for (int i = 0; i < numOfDecks * 52; i++)
       {
          System.out.println(tuPac.dealCard());
       }
@@ -24,7 +26,6 @@ public class DeckOfCards
 
 }
 
-// CARD
 class Card
 {
    public static enum Suit
@@ -150,7 +151,7 @@ class Card
    }
 }
 
-// Deck
+//Andrew's work
 class Deck
 {
    public final int MAX_CARDS = 6 * 52;
@@ -208,6 +209,7 @@ class Deck
    
    public void init(int numPacks)
    {
+      // if more than 6 decks, default to 6 decks
       if (numPacks > 6)
       {
          numPacks = 6;
@@ -216,11 +218,12 @@ class Deck
       int numOfCards = numPacks * 52;
       topCard = numOfCards - 1;
       
-      System.out.println(masterPack.length);
-      
-      for (int i = 0; i < numOfCards; i++)
+      for (int i = 1; i <= numPacks; i++)
       {
-         cards[i] = masterPack[i];
+         for (int j = 0; j < 52; j++)
+         {
+            cards[j] = masterPack[j];
+         }
       }
    }
      
@@ -231,7 +234,6 @@ class Deck
       for (int i = 0; i < numOfCards; i++)
       {
          int random = i + (int)(Math.random() * (numOfCards - i));
-         
          Card temp = cards[random];
          cards[random] = cards[i];
          cards[i] = temp;
