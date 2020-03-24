@@ -8,11 +8,12 @@ public class DeckOfCards
       int numOfDecks = 2;
       Deck tuPac = new Deck(numOfDecks);
       
-      for (int i = 0; i < 2 * 52; i++)
+      for (int i = 0; i < 1 * 52; i++)
       {
          System.out.println(tuPac.dealCard());
       }
       
+      System.out.println("The inspect card is " + tuPac.inspectCard(1));
       numOfDecks = 1;
       tuPac.init(numOfDecks);
       tuPac.shuffle();
@@ -215,6 +216,7 @@ class Deck
          numPacks = 6;
       }
       
+      int k = 0;
       int numOfCards = numPacks * 52;
       topCard = numOfCards - 1;
       
@@ -223,6 +225,7 @@ class Deck
          for (int j = 0; j < 52; j++)
          {
             cards[j] = masterPack[j];
+            k++;
          }
       }
    }
@@ -242,13 +245,20 @@ class Deck
      
    public Card dealCard() 
    {
-      if(topCard < 0)
-      {
-         Card empty = new Card();
-         return empty;
-      }
+//      if(topCard < 0)
+//      {
+//         Card empty = new Card();
+//         return empty;
+//      }
+//      
+//      return cards[topCard--];
       
-      return cards[topCard--];
+      Card tempCard = new Card();
+      tempCard = cards[topCard];
+      cards[topCard] = null;
+      topCard--;
+      
+      return tempCard;
    }
   
    public final Card topCardAccessor() 
@@ -266,7 +276,7 @@ class Deck
    {
       int numOfCards = cards.length;
       
-      if (k > numOfCards | --k < 0)
+      if (k > numOfCards | k < 0)
       {
          Card empty = new Card();
          return empty;
